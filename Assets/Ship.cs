@@ -18,24 +18,17 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        ShipTrust();
+        ShipSteering();
     }
 
-    private void ProcessInput()
+/*    private void ProcessInput()
     {
 
-        if (shipSound.isPlaying && Input.GetKey(KeyCode.Space) == false) //stop sound when thrust cut
-        {
-            shipSound.Stop();
-        }
 
 
 
-        ShipTrust();
-
-        ShipSteering();
-
-    }
+    }*/
 
     private void ShipSteering()
     {
@@ -58,7 +51,7 @@ public class Ship : MonoBehaviour
 
     private void ShipTrust()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)) //propulsion system
         {
             rocketBody.AddRelativeForce(Vector3.up);
             if (shipSound.isPlaying == false)
@@ -66,6 +59,10 @@ public class Ship : MonoBehaviour
                 shipSound.Play();
             }
             print("Thrusters engaged!");
+        }
+        if (shipSound.isPlaying && Input.GetKey(KeyCode.Space) == false) //stop sound when thrust cut
+        {
+            shipSound.Stop();
         }
     }
 }
