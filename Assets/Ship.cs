@@ -25,9 +25,6 @@ public class Ship : MonoBehaviour
 /*    private void ProcessInput()
     {
 
-
-
-
     }*/
 
     private void ShipSteering()
@@ -37,12 +34,12 @@ public class Ship : MonoBehaviour
             rocketBody.AddForce(Vector3.down);
             print("Mayday! Mayday!");
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A)) //turn left
         {
             transform.Rotate(Vector3.forward);
             print("Heading to Port!");
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D)) //turn right
         {
             transform.Rotate(Vector3.back);
             print("Heading to Starboard!");
