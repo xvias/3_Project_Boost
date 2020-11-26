@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    Rigidbody rocketBody;
+    Rigidbody shipBody;
     AudioSource shipSound;
     // Start is called before the first frame update
     void Start()
     {
-        rocketBody = GetComponent<Rigidbody>();
+        shipBody = GetComponent<Rigidbody>();
         shipSound = GetComponent<AudioSource>();
     }
 
@@ -29,9 +29,10 @@ public class Ship : MonoBehaviour
 
     private void ShipSteering()
     {
+        shipBody.freezeRotation = true; //assume manual control of movement
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) //steering error
         {
-            rocketBody.AddForce(Vector3.down);
+            shipBody.AddForce(Vector3.down);
             print("Mayday! Mayday!");
         }
         else if (Input.GetKey(KeyCode.A)) //turn left
@@ -44,13 +45,15 @@ public class Ship : MonoBehaviour
             transform.Rotate(Vector3.back);
             print("Heading to Starboard!");
         }
+
+        shipBody.freezeRotation = false; // resume physics control of movement
     }
 
     private void ShipTrust()
     {
         if (Input.GetKey(KeyCode.Space)) //propulsion system
         {
-            rocketBody.AddRelativeForce(Vector3.up);
+            shipBody.AddRelativeForce(Vector3.up);
             if (shipSound.isPlaying == false)
             {
                 shipSound.Play();
