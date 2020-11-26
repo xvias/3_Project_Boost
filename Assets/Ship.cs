@@ -23,26 +23,27 @@ public class Ship : MonoBehaviour
 
     private void ProcessInput()
     {
-/*        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
-        {
-            print("Mayday! Mayday!");
-            
-        }*/
-        if (Input.GetKey(KeyCode.Space)) //separate to allow independent and simultaneous with turn keys
-        {
-            rocketBody.AddRelativeForce(Vector3.up);
-            if (shipSound.isPlaying == false) {
-            shipSound.Play();
-            }
+        /*        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+                {
+                    print("Mayday! Mayday!");
 
-            print("Thrusters engaged!");
-        }
+                }*/
+        if (shipSound.isPlaying && Input.GetKey(KeyCode.Space) == false) //stop sound when thrust cut
+            shipSound.Stop();
+        ShipTrust();
 
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) //steering error
         {
             print("Mayday! Mayday!");
         }
-        else if (Input.GetKey(KeyCode.A))
+
+        ShipSteering();
+
+    }
+
+    private void ShipSteering()
+    {
+        if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward);
             print("Heading to Port!");
@@ -52,6 +53,18 @@ public class Ship : MonoBehaviour
             transform.Rotate(Vector3.back);
             print("Heading to Starboard!");
         }
+    }
 
+    private void ShipTrust()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rocketBody.AddRelativeForce(Vector3.up);
+            if (shipSound.isPlaying == false)
+            {
+                shipSound.Play();
+            }
+            print("Thrusters engaged!");
+        }
     }
 }
