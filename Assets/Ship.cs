@@ -23,19 +23,15 @@ public class Ship : MonoBehaviour
 
     private void ProcessInput()
     {
-        /*        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
-                {
-                    print("Mayday! Mayday!");
 
-                }*/
         if (shipSound.isPlaying && Input.GetKey(KeyCode.Space) == false) //stop sound when thrust cut
-            shipSound.Stop();
-        ShipTrust();
-
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) //steering error
         {
-            print("Mayday! Mayday!");
+            shipSound.Stop();
         }
+
+
+
+        ShipTrust();
 
         ShipSteering();
 
@@ -43,7 +39,12 @@ public class Ship : MonoBehaviour
 
     private void ShipSteering()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) //steering error
+        {
+            rocketBody.AddForce(Vector3.down);
+            print("Mayday! Mayday!");
+        }
+        else if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward);
             print("Heading to Port!");
